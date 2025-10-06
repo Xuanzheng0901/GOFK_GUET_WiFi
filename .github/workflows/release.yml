@@ -1,3 +1,4 @@
+#file: noinspection UndefinedParamsPresent,UndefinedAction
 name: Go Release
 
 permissions:
@@ -21,14 +22,21 @@ jobs:
         with:
           go-version: '1.24'
 
-      - name: Build Windows exe
+      - name: Build binaries
         run: |
           mkdir -p build
-          GOOS=windows GOARCH=amd64 go build -o build/GOFK-GUET-WiFI.exe ./cmd/main
+          # Windows 64-bit
+          GOOS=windows GOARCH=amd64 go build -o build/GOFK-GUET-WiFI-windows-amd64.exe ./cmd/main
+          # Linux 64-bit
+          GOOS=linux GOARCH=amd64 go build -o build/GOFK-GUET-WiFI-linux-amd64 ./cmd/main
+          # macOS 64-bit (Intel)
+          GOOS=darwin GOARCH=amd64 go build -o build/GOFK-GUET-WiFI-darwin-amd64 ./cmd/main
+          # macOS arm64 (Apple Silicon M1/M2)
+          GOOS=darwin GOARCH=arm64 go build -o build/GOFK-GUET-WiFI-darwin-arm64 ./cmd/main
 
-      - name: Upload Release
+      - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
         with:
-          files: build/GOFK-GUET-WiFI.exe
+          files: build/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
