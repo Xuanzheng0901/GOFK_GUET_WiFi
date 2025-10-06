@@ -6,7 +6,7 @@ permissions:
 on:
   push:
     tags:
-      - 'v*'   # 只在 push 以 v 开头的 tag 时触发，比如 v1.0.0
+      - 'v*'
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.24'  # 你项目用的 Go 版本，改成对应版本
+          go-version: '1.24'
 
       - name: Build Windows exe
         run: |
