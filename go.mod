@@ -10,4 +10,4 @@ require (
 	golang.org/x/term v0.35.0
 )
 
-require golang.org/x/net v0.33.0 // indirect
+require golang.org/x/net v0.44.0 // indirect
